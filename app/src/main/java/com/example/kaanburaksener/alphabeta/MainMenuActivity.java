@@ -49,6 +49,7 @@ public class MainMenuActivity extends Activity{
             switch(v.getId()) {
                 case R.id.startAlphabet:
                     Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
+                    i1.putExtra("letter id", 1);
                     startActivity(i1);
                     finish();
                     break;

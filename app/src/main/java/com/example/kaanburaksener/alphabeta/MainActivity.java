@@ -1,14 +1,22 @@
 package com.example.kaanburaksener.alphabeta;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import java.util.List;
+import android.view.View;
+import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
     private DBHandler db ;
-    List<Letter> letters;
+    private Letter letter;
+    private TextView uppercaseLetter;
+    private TextView lowercaseLetter;
+    private TextView pronunciation;
+    private TextView backButton;
+    private TextView forwardButton;
+    private int letterID;
+    private int nextID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,31 +24,78 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         db = new DBHandler(this);
 
-        letters = db.getLetters();
+        // getting attached intent data
+        Intent i = getIntent();
+        Bundle extras = getIntent().getExtras();
+        letterID = extras.getInt("letter id");
+        letter = db.getLetter(letterID);
 
-        for (int i = 0; i<letters.size();i++)
-            System.out.println(letters.get(i).toString());
+        initializer();
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    /**
+     * This function is used to initialize the layout elements
+     */
+    private void initializer() {
+        uppercaseLetter = (TextView)findViewById(R.id.uppercaseLetter);
+        lowercaseLetter = (TextView)findViewById(R.id.lowercaseLetter);
+        pronunciation = (TextView)findViewById(R.id.pronunciation);
+        backButton = (TextView)findViewById(R.id.back);
+        forwardButton = (TextView)findViewById(R.id.forward);
+
+        setFont();
+
+        uppercaseLetter.setText(letter.getUppercaseLetter());
+        lowercaseLetter.setText(letter.getLowercaseLetter());
+        pronunciation.setText("(" + letter.getPronunciation() + ")");
+
+        backButton.setOnClickListener(router);
+        forwardButton.setOnClickListener(router);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    /**
+     * This function is used to set font to the layout elements
+     */
+    private void setFont() {
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        uppercaseLetter.setTypeface(typeface);
+        lowercaseLetter.setTypeface(typeface);
+        pronunciation.setTypeface(typeface);
+        backButton.setTypeface(typeface);
+        forwardButton.setTypeface(typeface);
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /**
+     * This function is used to make the layout elements clickable
+     */
+    View.OnClickListener router = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
+
+            switch(v.getId()) {
+                case R.id.back:
+                    nextID = letterID - 1;
+
+                    if(nextID == 0) {
+                        nextID = 33;
+                    }
+
+                    i1.putExtra("letter id", nextID);
+                    break;
+                case R.id.forward:
+                    nextID = letterID + 1;
+
+                    if(nextID == 34) {
+                        nextID = 1;
+                    }
+
+                    i1.putExtra("letter id", nextID);
+                    break;
+            }
+
+            startActivity(i1);
+            finish();
         }
-
-        return super.onOptionsItemSelected(item);
-    }
+    };
 }

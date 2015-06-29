@@ -40,9 +40,6 @@ public class OptionsActivity extends Activity {
 
                 // sending data to new activity
                 i.putExtra("letter id", letter.getId());
-                i.putExtra("letter uppercase", letter.getUppercaseLetter());
-                i.putExtra("letter lowercase", letter.getLowercaseLetter());
-                i.putExtra("letter pronunciation", letter.getPronunciation());
 
                 startActivity(i);
             }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,29 +17,24 @@ import java.util.List;
 public class OptionsWordListActivity extends Activity {
     private List<Word> wordList = new ArrayList<Word>();
     private int letterID;
-    private String uppercaseLetter;
-    private String lowercaseLetter;
-    private String pronunciation;
-    private DBHandler db ;
+    private Letter currentLetter;
+    private DBHandler db;
     private TextView letter;
+    private TextView addNewWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_list);
 
-        Intent i = getIntent();
-
-        Bundle extras = getIntent().getExtras();
-
-        // getting attached intent data
-        letterID = extras.getInt("letter id");
-        uppercaseLetter = extras.getString("letter uppercase");
-        lowercaseLetter = extras.getString("letter lowercase");
-        pronunciation = extras.getString("letter pronunciation");
-
         db = new DBHandler(this);
 
+        // getting attached intent data
+        Intent i = getIntent();
+        Bundle extras = getIntent().getExtras();
+        letterID = extras.getInt("letter id");
+
+        currentLetter = db.getLetter(letterID);
         wordList = db.getWords(letterID);
 
         initializer();
@@ -50,7 +46,9 @@ public class OptionsWordListActivity extends Activity {
 
     private void initializer() {
         letter = (TextView)findViewById(R.id.letter);
-        letter.setText(uppercaseLetter + " / " + lowercaseLetter + " (" + pronunciation + ")");
+        letter.setText(currentLetter.getUppercaseLetter() + " / " + currentLetter.getLowercaseLetter() + " (" + currentLetter.getPronunciation() + ")");
+        addNewWord = (TextView)findViewById(R.id.addNewWord);
+        addNewWord.setOnClickListener(router);
         setFont();
     }
 
@@ -60,5 +58,21 @@ public class OptionsWordListActivity extends Activity {
     private void setFont() {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         letter.setTypeface(typeface);
+        addNewWord.setTypeface(typeface);
     }
+
+    View.OnClickListener router = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch(v.getId()) {
+                case R.id.addNewWord:
+                    Intent i1 = new Intent(getApplicationContext(),AddNewWordActivity.class);
+
+                    i1.putExtra("letter id", letterID);
+
+                    startActivity(i1);
+                    finish();
+                    break;
+            }
+        }
+    };
 }

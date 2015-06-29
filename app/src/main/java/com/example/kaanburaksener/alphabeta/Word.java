@@ -10,12 +10,14 @@ public class Word {
     private String inRussian;
     private String inTurkish;
     private String pronunciation;
+    private int firstLetterId;
 
-    public Word(String inRussian, String inTurkish, String pronunciation) {
+    public Word(String inRussian, String inTurkish, String pronunciation, int firstLetterId) {
         super();
         this.inRussian = inRussian;
         this.inTurkish = inTurkish;
         this.pronunciation = pronunciation;
+        this.firstLetterId = firstLetterId;
     }
 
     public String getInRussian() {
@@ -42,8 +44,16 @@ public class Word {
         this.pronunciation = pronunciation;
     }
 
+    public int getFirstLetterID() {
+        return firstLetterId;
+    }
+
+    public void setFirstLetterId(int firstLetterId) {
+        this.firstLetterId = firstLetterId;
+    }
+
     @Override
     public String toString() {
-        return "Rusça: " + this.inRussian + ", Türkçe: " + this.inTurkish + ", Telafuz: " + this.pronunciation;
+        return "Rusça: " + this.inRussian + ", Türkçe: " + this.inTurkish + ", Okunuşu: " + this.pronunciation + ", Harf ID: " + this.firstLetterId;
     }
 }

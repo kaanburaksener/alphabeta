@@ -58,13 +58,13 @@ public class Letter {
         return words;
     }
 
-    public void addWord(String inRussian, String inTurkish, String pronunciation) {
-       Word newWord = new Word(inRussian, inTurkish, pronunciation);
+    public void addWord(String inRussian, String inTurkish, String pronunciation, int firstLetterId) {
+       Word newWord = new Word(inRussian, inTurkish, pronunciation, firstLetterId);
        words.add(newWord);
    }
 
     @Override
     public String toString() {
-        return "Büyük Harf: " + this.uppercaseLetter + ", Küçük Harf: " + this.lowercaseLetter + ", Telafuz: " + this.pronunciation;
+        return ", Harf ID: " + this.id + "Büyük Harf: " + this.uppercaseLetter + ", Küçük Harf: " + this.lowercaseLetter + ", Okunuşu: " + this.pronunciation;
     }
 }

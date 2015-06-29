@@ -36,6 +36,21 @@
             android:name=".OptionsWordListActivity"
             android:label="@string/app_name" >
         </activity>
+
+        <activity
+            android:name=".AddNewWordActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".LetterWordListActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".LetterWordListDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

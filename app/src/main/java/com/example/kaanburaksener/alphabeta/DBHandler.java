@@ -43,7 +43,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 WORD_COLUMN_FIRST_LETTER_ID + " INTEGER," +
                 "FOREIGN KEY(" + WORD_COLUMN_FIRST_LETTER_ID + ") REFERENCES " + LETTER_TABLE_NAME + "(" + LETTER_COLUMN_ID + "));";
 
-        String letter1 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'А', 'а', 'a');";
+        String letter1 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(1, 'А', 'а', 'a');";
         String letter2 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Б', 'б', 'b');";
         String letter3 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'В', 'в', 'v');";
         String letter4 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Г', 'г', 'g');";
@@ -124,7 +124,7 @@ public class DBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addWord(String inRussian, String inTurkish, String pronunciation, int firstLetterID) {
+    public void addWord(String inRussian, String inTurkish, String pronunciation, int firstLetterID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -135,7 +135,20 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.insert(WORD_TABLE_NAME, null, contentValues);
         db.close();
-        return true;
+    }
+
+    public Letter getLetter(int id) {
+        Letter letter;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT * FROM " + LETTER_TABLE_NAME + " WHERE " + LETTER_COLUMN_ID + " = " + id + "", null );
+
+        if (res != null) {
+            res.moveToFirst();
+            letter = new Letter(res.getInt(res.getColumnIndex(LETTER_COLUMN_ID)), res.getString(res.getColumnIndex(LETTER_COLUMN_UPPERCASE_LETTER)), res.getString(res.getColumnIndex(LETTER_COLUMN_LOWERCASE_LETTER)),res.getString(res.getColumnIndex(LETTER_COLUMN_PRONUNCIATION)));
+            return letter;
+        }
+        return null;
     }
 
     public List<Letter> getLetters() {
@@ -154,6 +167,22 @@ public class DBHandler extends SQLiteOpenHelper {
         return letters;
     }
 
+    public List<Word> getWords() {
+        List<Word> words = new ArrayList<Word>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "SELECT * FROM " + WORD_TABLE_NAME, null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            Word newWord = new Word(res.getString(res.getColumnIndex(WORD_COLUMN_IN_RUSSIAN)), res.getString(res.getColumnIndex(WORD_COLUMN_IN_TURKISH)), res.getString(res.getColumnIndex(WORD_COLUMN_PRONUNCIATION)), res.getInt(res.getColumnIndex(WORD_COLUMN_FIRST_LETTER_ID)));
+            words.add(newWord);
+            res.moveToNext();
+        }
+
+        return words;
+    }
+
     public List<Word> getWords(int firstLetterID) {
         List<Word> words = new ArrayList<Word>();
 
@@ -162,7 +191,7 @@ public class DBHandler extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            Word newWord = new Word(res.getString(res.getColumnIndex(WORD_COLUMN_IN_RUSSIAN)), res.getString(res.getColumnIndex(WORD_COLUMN_IN_TURKISH)),res.getString(res.getColumnIndex(WORD_COLUMN_PRONUNCIATION)));
+            Word newWord = new Word(res.getString(res.getColumnIndex(WORD_COLUMN_IN_RUSSIAN)), res.getString(res.getColumnIndex(WORD_COLUMN_IN_TURKISH)), res.getString(res.getColumnIndex(WORD_COLUMN_PRONUNCIATION)), res.getInt(res.getColumnIndex(WORD_COLUMN_FIRST_LETTER_ID)));
             words.add(newWord);
             res.moveToNext();
         }
