@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#303F9F"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:text="Start Alphabet"
+        android:gravity="center"
+        android:id="@+id/startAlphabet" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#8BC34A"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:text="Options"
+        android:gravity="center"
+        android:id="@+id/options" />
+</LinearLayout>

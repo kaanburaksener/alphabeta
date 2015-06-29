@@ -1,0 +1,13 @@
+{"letters":[
+    {
+    "id" : 1,
+    "uppercaseLetter" : "А",
+    "lowercaseLetter" : "а",
+    "pronounciation" : "a",
+    "words": {
+            "inRussian" : "август",
+            "inTurkish" : "ağustos",
+            "pronounciation" : "avgust"
+    }     
+    },
+]}
