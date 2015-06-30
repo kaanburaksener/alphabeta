@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private DBHandler db ;
@@ -17,6 +21,13 @@ public class MainActivity extends Activity {
     private TextView forwardButton;
     private int letterID;
     private int nextID;
+    private LinearLayout letterTab;
+
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private GestureDetector gestureDetector;
+    View.OnTouchListener gestureListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +42,16 @@ public class MainActivity extends Activity {
         letter = db.getLetter(letterID);
 
         initializer();
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+        // Gesture detection
+        gestureDetector = new GestureDetector(this, new MyGestureDetector());
+        gestureListener = new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        };
+
+        letterTab.setOnTouchListener(gestureListener);
     }
 
     /**
@@ -43,6 +63,7 @@ public class MainActivity extends Activity {
         pronunciation = (TextView)findViewById(R.id.pronunciation);
         backButton = (TextView)findViewById(R.id.back);
         forwardButton = (TextView)findViewById(R.id.forward);
+        letterTab = (LinearLayout) findViewById(R.id.letterTab);
 
         setFont();
 
@@ -66,6 +87,14 @@ public class MainActivity extends Activity {
         forwardButton.setTypeface(typeface);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gestureDetector.onTouchEvent(event))
+            return true;
+        else
+            return false;
+    }
+
     /**
      * This function is used to make the layout elements clickable
      */
@@ -82,6 +111,7 @@ public class MainActivity extends Activity {
                     }
 
                     i1.putExtra("letter id", nextID);
+                    overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
                     break;
                 case R.id.forward:
                     nextID = letterID + 1;
@@ -91,6 +121,7 @@ public class MainActivity extends Activity {
                     }
 
                     i1.putExtra("letter id", nextID);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     break;
             }
 
@@ -98,4 +129,30 @@ public class MainActivity extends Activity {
             finish();
         }
     };
+
+    class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                    return false;
+                // right to left swipe
+                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    Intent i1 = new Intent(getApplicationContext(),LetterWordListActivity.class);
+                    i1.putExtra("letter id", letterID);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    startActivity(i1);
+                    finish();
+                }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    return false;
+                }
+            } catch (Exception e) {}
+            return false;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+    }
 }
