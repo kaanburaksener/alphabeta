@@ -1,8 +1,5 @@
 package com.example.kaanburaksener.alphabeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by KAAN BURAK SENER on 27.06.2015.
  */
@@ -11,7 +8,6 @@ public class Letter {
     private String uppercaseLetter;
     private String lowercaseLetter;
     private String pronunciation;
-    private List<Word> words;
 
     public Letter(int id, String uppercaseLetter, String lowercaseLetter, String pronunciation) {
         super();
@@ -19,7 +15,6 @@ public class Letter {
         this.uppercaseLetter = uppercaseLetter;
         this.lowercaseLetter = lowercaseLetter;
         this.pronunciation = pronunciation;
-        words = new ArrayList<Word>();
     }
 
     public int getId() {
@@ -53,15 +48,6 @@ public class Letter {
     public void setPronunciation(String pronunciation) {
         this.pronunciation = pronunciation;
     }
-
-    public List<Word> getWords() {
-        return words;
-    }
-
-    public void addWord(String inRussian, String inTurkish, String pronunciation, int firstLetterId) {
-       Word newWord = new Word(inRussian, inTurkish, pronunciation, firstLetterId);
-       words.add(newWord);
-   }
 
     @Override
     public String toString() {

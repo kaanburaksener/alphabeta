@@ -9,7 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 
 public class MainActivity extends Activity {
     private DBHandler db ;
@@ -33,17 +34,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = new DBHandler(this);
 
-        // getting attached intent data
+        // Getting attached intent data
         Intent i = getIntent();
         Bundle extras = getIntent().getExtras();
         letterID = extras.getInt("letter id");
-        letter = db.getLetter(letterID);
 
         initializer();
 
-        // Gesture detection
         gestureDetector = new GestureDetector(this, new MyGestureDetector());
         gestureListener = new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -55,7 +53,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * This function is used to initialize the layout elements
+     * This function is used to initialize the layout elements and the attributes of the class
      */
     private void initializer() {
         uppercaseLetter = (TextView)findViewById(R.id.uppercaseLetter);
@@ -66,6 +64,9 @@ public class MainActivity extends Activity {
         letterTab = (LinearLayout) findViewById(R.id.letterTab);
 
         setFont();
+
+        db = new DBHandler(this);
+        letter = db.getLetter(letterID);
 
         uppercaseLetter.setText(letter.getUppercaseLetter());
         lowercaseLetter.setText(letter.getLowercaseLetter());
@@ -96,48 +97,51 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * This function is used to make the layout elements clickable
+     * This function is used to create navigation between the activities
      */
     View.OnClickListener router = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
+        Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
 
-            switch(v.getId()) {
-                case R.id.back:
-                    nextID = letterID - 1;
+        switch(v.getId()) {
+            case R.id.back:
+                nextID = letterID - 1;
 
-                    if(nextID == 0) {
-                        nextID = 33;
-                    }
+                if(nextID == 0) {
+                    nextID = 33;
+                }
 
-                    i1.putExtra("letter id", nextID);
-                    overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
-                    break;
-                case R.id.forward:
-                    nextID = letterID + 1;
+                i1.putExtra("letter id", nextID);
+                overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+                break;
+            case R.id.forward:
+                nextID = letterID + 1;
 
-                    if(nextID == 34) {
-                        nextID = 1;
-                    }
+                if(nextID == 34) {
+                    nextID = 1;
+                }
 
-                    i1.putExtra("letter id", nextID);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                    break;
-            }
+                i1.putExtra("letter id", nextID);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                break;
+        }
 
-            startActivity(i1);
-            finish();
+        startActivity(i1);
+        finish();
         }
     };
 
+    /**
+     * This class is used to detect gesture and routing between activities
+     */
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             try {
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
                     return false;
-                // right to left swipe
                 if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    // Swipe from right to left
                     Intent i1 = new Intent(getApplicationContext(),LetterWordListActivity.class);
                     i1.putExtra("letter id", letterID);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

@@ -18,9 +18,13 @@ public class LetterWordListDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_letter_word_list_detail);
+
         initializer();
     }
 
+    /**
+     * This function is used to initialize the layout elements and the attributes of the class
+     */
     private void initializer() {
         inRussian = (TextView)findViewById(R.id.inRussian);
         inTurkish = (TextView)findViewById(R.id.inTurkish);

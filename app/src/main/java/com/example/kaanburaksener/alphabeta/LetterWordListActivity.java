@@ -11,7 +11,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.kaanburaksener.alphabeta.adapter.WordListAdapter;
+import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +40,10 @@ public class LetterWordListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_letter_word_list);
 
-        db = new DBHandler(this);
-
-        // getting attached intent data
+        // Getting data from incoming activity
         Intent i = getIntent();
         Bundle extras = getIntent().getExtras();
         letterID = extras.getInt("letter id");
-
-        currentLetter = db.getLetter(letterID);
-        wordList = db.getWords(letterID);
 
         initializer();
 
@@ -54,22 +51,20 @@ public class LetterWordListActivity extends Activity {
         final WordListAdapter adapter = new WordListAdapter(this, wordList);
         wordListView.setAdapter(adapter);
 
-
         wordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // Selected item
+            Word word = adapter.getItem(position);
 
-                // selected item
-                Word word = adapter.getItem(position);
+            // Launching new Activity on selecting single List Item
+            Intent i = new Intent(LetterWordListActivity.this, LetterWordListDetailActivity.class);
 
-                // Launching new Activity on selecting single List Item
-                Intent i = new Intent(LetterWordListActivity.this, LetterWordListDetailActivity.class);
+            // Sending data to new activity
+            i.putExtra("word inRussian", word.getInRussian());
+            i.putExtra("word inTurkish", word.getInTurkish());
+            i.putExtra("word pronunciation", word.getPronunciation());
 
-                // sending data to new activity
-                i.putExtra("word inRussian", word.getInRussian());
-                i.putExtra("word inTurkish", word.getInTurkish());
-                i.putExtra("word pronunciation", word.getPronunciation());
-
-                startActivity(i);
+            startActivity(i);
             }
         });
 
@@ -84,11 +79,22 @@ public class LetterWordListActivity extends Activity {
         wordListTab.setOnTouchListener(gestureListener);
     }
 
+    /**
+     * This function is used to initialize the layout elements and the attributes of the class
+     */
     private void initializer() {
         letter = (TextView)findViewById(R.id.letter);
-        letter.setText(currentLetter.getUppercaseLetter() + " / " + currentLetter.getLowercaseLetter() + " (" + currentLetter.getPronunciation() + ")");
         wordListTab = (LinearLayout) findViewById(R.id.wordListTab);
+
         setFont();
+
+        db = new DBHandler(this);
+
+        // Getting letter and its word list from the database
+        currentLetter = db.getLetter(letterID);
+        wordList = db.getWords(letterID);
+
+        letter.setText(currentLetter.getUppercaseLetter() + " / " + currentLetter.getLowercaseLetter() + " (" + currentLetter.getPronunciation() + ")");
     }
 
     /**
@@ -99,8 +105,11 @@ public class LetterWordListActivity extends Activity {
         letter.setTypeface(typeface);
     }
 
+    /**
+     * This class is used to detect gesture and routing between activities
+     */
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
-        // Detect a single-click and call my own handler.
+        // Detect a single-click and left-right swipes
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             return false;
@@ -111,10 +120,10 @@ public class LetterWordListActivity extends Activity {
             try {
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
                     return false;
-                // right to left swipe
                 if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                     return false;
                 }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    // Swipe from left to right
                     Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
                     i1.putExtra("letter id", letterID);
                     overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
@@ -122,7 +131,7 @@ public class LetterWordListActivity extends Activity {
                     finish();
                 }
             } catch (Exception e) {
-                // nothing
+
             }
             return false;
         }

@@ -1,8 +1,5 @@
 package com.example.kaanburaksener.alphabeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by KAAN BURAK SENER on 27.06.2015.
  */
