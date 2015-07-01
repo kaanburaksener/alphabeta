@@ -6,15 +6,18 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:background="#303F9F"
-        android:textColor="#ffffff"
+        android:background="@color/primary"
+        android:textColor="@color/primary_text"
         android:gravity="center"
         android:text="Harfler"
         android:textSize="34dp"
+        android:elevation="3dp"
         android:layout_height="60dp" />
 
     <ListView
         android:id="@+id/letterList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@color/divider"
+        android:dividerHeight="1dip"/>
 </LinearLayout>

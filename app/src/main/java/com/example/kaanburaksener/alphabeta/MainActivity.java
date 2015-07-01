@@ -1,15 +1,21 @@
 package com.example.kaanburaksener.alphabeta;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Outline;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.kaanburaksener.alphabeta.core.Letter;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 
 public class MainActivity extends Activity {
@@ -23,10 +29,12 @@ public class MainActivity extends Activity {
     private int letterID;
     private int nextID;
     private LinearLayout letterTab;
+    private LinearLayout navigation;
 
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
 
@@ -34,6 +42,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Getting attached intent data
         Intent i = getIntent();
@@ -62,6 +71,7 @@ public class MainActivity extends Activity {
         backButton = (TextView)findViewById(R.id.back);
         forwardButton = (TextView)findViewById(R.id.forward);
         letterTab = (LinearLayout) findViewById(R.id.letterTab);
+        navigation = (LinearLayout) findViewById(R.id.navigation);
 
         setFont();
 
@@ -79,6 +89,7 @@ public class MainActivity extends Activity {
     /**
      * This function is used to set font to the layout elements
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setFont() {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
         uppercaseLetter.setTypeface(typeface);
@@ -86,6 +97,19 @@ public class MainActivity extends Activity {
         pronunciation.setTypeface(typeface);
         backButton.setTypeface(typeface);
         forwardButton.setTypeface(typeface);
+
+        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+            int size = getResources().getDimensionPixelSize(R.dimen.fab_size);
+            outline.setRect(0, 0, view.getWidth(), view.getHeight());
+            }
+        };
+
+        uppercaseLetter.setOutlineProvider(viewOutlineProvider);
+        lowercaseLetter.setOutlineProvider(viewOutlineProvider);
+        pronunciation.setOutlineProvider(viewOutlineProvider);
+        navigation.setOutlineProvider(viewOutlineProvider);
     }
 
     @Override
@@ -112,7 +136,9 @@ public class MainActivity extends Activity {
                 }
 
                 i1.putExtra("letter id", nextID);
-                overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
+                startActivity(i1);
+                finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 break;
             case R.id.forward:
                 nextID = letterID + 1;
@@ -122,12 +148,12 @@ public class MainActivity extends Activity {
                 }
 
                 i1.putExtra("letter id", nextID);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                startActivity(i1);
+                finish();
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 break;
         }
 
-        startActivity(i1);
-        finish();
         }
     };
 
@@ -137,21 +163,28 @@ public class MainActivity extends Activity {
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-                    return false;
-                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    // Swipe from right to left
-                    Intent i1 = new Intent(getApplicationContext(),LetterWordListActivity.class);
-                    i1.putExtra("letter id", letterID);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                    startActivity(i1);
-                    finish();
-                }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    return false;
-                }
-            } catch (Exception e) {}
-            return false;
+            if (e1.getX() < e2.getX()) {
+                //Swipe from left to right
+            }
+
+            if (e1.getX() > e2.getX()) {
+                // Swipe from right to left
+            }
+
+            if (e1.getY() < e2.getY()) {
+                // Swipe from up to down
+            }
+
+            if (e1.getY() > e2.getY()) {
+                // Swipe from down to up
+                Intent i1 = new Intent(getApplicationContext(),LetterWordListActivity.class);
+                i1.putExtra("letter id", letterID);
+                startActivity(i1);
+                finish();
+                overridePendingTransition(R.anim.slide_in_from_up, R.anim.slide_out_to_bottom );
+            }
+
+            return true;
         }
 
         @Override

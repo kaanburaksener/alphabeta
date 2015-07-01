@@ -2,27 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_main">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/startAlphabet"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#303F9F"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:text="Alfabeye Başla!"
-        android:gravity="center"
-        android:id="@+id/startAlphabet" />
+        android:background="@color/second"
+        android:elevation="3dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|left">
 
-    <TextView
+        <TextView
+            android:id="@+id/startAlphabetText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:textSize="34sp"
+            android:text="Alfabeye Başla!"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableBottom="@drawable/ic_language_white_48dp"
+            android:drawablePadding="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/options"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#8BC34A"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:text="Admin"
-        android:gravity="center"
-        android:id="@+id/options" />
+        android:background="@color/first"
+        android:elevation="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|left">
+
+        <TextView
+            android:id="@+id/optionsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:textSize="34sp"
+            android:text="Admin Paneli"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableBottom="@drawable/ic_settings_white_48dp"
+            android:drawablePadding="5dp" />
+    </LinearLayout>
 </LinearLayout>

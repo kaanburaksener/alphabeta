@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.kaanburaksener.alphabeta.Letter;
+import com.example.kaanburaksener.alphabeta.core.Letter;
 import com.example.kaanburaksener.alphabeta.R;
 
 import java.util.List;

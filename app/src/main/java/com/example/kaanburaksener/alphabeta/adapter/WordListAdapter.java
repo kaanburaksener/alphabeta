@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.kaanburaksener.alphabeta.R;
-import com.example.kaanburaksener.alphabeta.Word;
+import com.example.kaanburaksener.alphabeta.core.Word;
 
 import java.util.List;
 

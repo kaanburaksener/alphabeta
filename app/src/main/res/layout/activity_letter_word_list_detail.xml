@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main">
 
     <TextView
         android:id="@+id/inRussian"
@@ -9,9 +11,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:background="#ffffff"
-        android:textColor="#5D6064"
-        android:textSize="56sp"/>
+        android:background="@color/third"
+        android:textColor="@color/secondary_text"
+        android:textSize="56sp"
+        android:elevation="3dp"
+        android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/inTurkish"
@@ -19,9 +23,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:background="#03A9F4"
-        android:textColor="#ffffff"
-        android:textSize="56sp"/>
+        android:background="@color/second"
+        android:textColor="@color/primary_text"
+        android:textSize="56sp"
+        android:elevation="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/pronunciation"
@@ -29,8 +36,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:background="#F44336"
-        android:textSize="34sp"
-        android:textStyle="italic"/>
+        android:background="@color/first"
+        android:textColor="@color/primary_text"
+        android:textSize="56sp"
+        android:elevation="3dp"
+        android:textStyle="italic"
+        android:layout_margin="10dp"/>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.kaanburaksener.alphabeta.R;
@@ -21,11 +22,12 @@ public class AddNewWordActivity extends Activity {
     private String inRussian;
     private String inTurkish;
     private String pronunciation;
-    private TextView saveButton;
+    private TextView saveButtonText;
     private TextView heading;
     private EditText inRussianET;
     private EditText inTurkishET;
     private EditText pronunciationET;
+    private LinearLayout saveButton;
     private DBHandler db;
 
     @Override
@@ -45,11 +47,12 @@ public class AddNewWordActivity extends Activity {
      * This function is used to initialize the layout elements and the attributes of the class
      */
     private void initializer() {
-        saveButton = (TextView)findViewById(R.id.saveButton);
+        saveButtonText = (TextView)findViewById(R.id.saveButtonText);
         heading = (TextView)findViewById(R.id.heading);
         inRussianET = (EditText)findViewById(R.id.inRussian);
         inTurkishET = (EditText)findViewById(R.id.inTurkish);
         pronunciationET = (EditText)findViewById(R.id.pronunciation);
+        saveButton = (LinearLayout)findViewById(R.id.saveButton);
 
         setFont();
 

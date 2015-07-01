@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.kaanburaksener.alphabeta.Letter;
+import com.example.kaanburaksener.alphabeta.core.Letter;
 import com.example.kaanburaksener.alphabeta.R;
-import com.example.kaanburaksener.alphabeta.Word;
+import com.example.kaanburaksener.alphabeta.core.Word;
 import com.example.kaanburaksener.alphabeta.adapter.WordListAdapter;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 

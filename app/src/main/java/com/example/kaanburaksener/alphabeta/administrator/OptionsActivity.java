@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.kaanburaksener.alphabeta.Letter;
+import com.example.kaanburaksener.alphabeta.core.Letter;
 import com.example.kaanburaksener.alphabeta.adapter.LetterListAdapter;
 import com.example.kaanburaksener.alphabeta.R;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;

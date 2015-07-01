@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.kaanburaksener.alphabeta.Letter;
-import com.example.kaanburaksener.alphabeta.Word;
+import com.example.kaanburaksener.alphabeta.core.Letter;
+import com.example.kaanburaksener.alphabeta.core.Word;
 
 import java.util.ArrayList;
 import java.util.List;

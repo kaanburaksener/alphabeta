@@ -6,20 +6,20 @@
     <TextView
         android:id="@+id/inRussian"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:layout_weight="1"
-        android:background="#03A9F4"
-        android:textColor="#ffffff"
+        android:background="@color/second"
+        android:textColor="@color/primary_text"
         android:gravity="center"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/inTurkish"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:layout_weight="1"
-        android:background="#FF5252"
-        android:textColor="#ffffff"
+        android:background="@color/first"
+        android:textColor="@color/primary_text"
         android:gravity="center"
         android:textSize="24sp" />
 </LinearLayout>

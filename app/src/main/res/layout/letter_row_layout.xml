@@ -6,20 +6,21 @@
     <TextView
         android:id="@+id/uppercaseLetter"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_weight="1"
-        android:background="#3F51B5"
-        android:textColor="#ffffff"
+        android:background="@color/second"
+        android:textColor="@color/primary_text"
         android:gravity="center"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/lowercaseLetter"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_weight="1"
-        android:background="#8BC34A"
-        android:textColor="#ffffff"
+        android:background="@color/first"
+        android:textColor="@color/primary_text"
         android:gravity="center"
         android:textSize="34sp" />
 </LinearLayout>

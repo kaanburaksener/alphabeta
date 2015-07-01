@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.kaanburaksener.alphabeta.adapter.WordListAdapter;
+import com.example.kaanburaksener.alphabeta.core.Letter;
+import com.example.kaanburaksener.alphabeta.core.Word;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class LetterWordListActivity extends Activity {
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
 
@@ -53,18 +56,19 @@ public class LetterWordListActivity extends Activity {
 
         wordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // Selected item
-            Word word = adapter.getItem(position);
+                // Selected item
+                Word word = adapter.getItem(position);
 
-            // Launching new Activity on selecting single List Item
-            Intent i = new Intent(LetterWordListActivity.this, LetterWordListDetailActivity.class);
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(LetterWordListActivity.this, LetterWordListDetailActivity.class);
 
-            // Sending data to new activity
-            i.putExtra("word inRussian", word.getInRussian());
-            i.putExtra("word inTurkish", word.getInTurkish());
-            i.putExtra("word pronunciation", word.getPronunciation());
+                // Sending data to new activity
+                i.putExtra("letter id", letterID);
+                i.putExtra("word inRussian", word.getInRussian());
+                i.putExtra("word inTurkish", word.getInTurkish());
+                i.putExtra("word pronunciation", word.getPronunciation());
 
-            startActivity(i);
+                startActivity(i);
             }
         });
 
@@ -117,23 +121,28 @@ public class LetterWordListActivity extends Activity {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-                    return false;
-                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    return false;
-                }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    // Swipe from left to right
-                    Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
-                    i1.putExtra("letter id", letterID);
-                    overridePendingTransition(R.anim.slide_out, R.anim.slide_in);
-                    startActivity(i1);
-                    finish();
-                }
-            } catch (Exception e) {
-
+            if (e1.getX() < e2.getX()) {
+                //Swipe from left to right
             }
-            return false;
+
+            if (e1.getX() > e2.getX()) {
+                // Swipe from right to left
+            }
+
+            if (e1.getY() < e2.getY()) {
+                // Swipe from up to down
+                Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
+                i1.putExtra("letter id", letterID);
+                startActivity(i1);
+                finish();
+                overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.slide_out_to_top );
+            }
+
+            if (e1.getY() > e2.getY()) {
+                // Swipe from down to up
+            }
+
+            return true;
         }
 
         @Override
