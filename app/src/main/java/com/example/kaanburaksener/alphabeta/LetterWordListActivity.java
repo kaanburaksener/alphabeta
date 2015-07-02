@@ -31,10 +31,6 @@ public class LetterWordListActivity extends Activity {
     private TextView letter;
     private LinearLayout wordListTab;
 
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
 

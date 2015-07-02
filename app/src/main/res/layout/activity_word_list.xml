@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#0288D1"
-        android:textColor="#ffffff"
+        android:background="@color/primary"
+        android:textColor="@color/primary_text"
         android:gravity="center"
         android:textSize="34dp"
-         />
+        android:elevation="3dp" />
 
     <ListView
         android:id="@+id/wordList"

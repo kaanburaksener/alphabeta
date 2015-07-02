@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,6 +44,24 @@ public class OptionsWordListActivity extends Activity {
         final ListView wordListView = (ListView)findViewById(R.id.wordList);
         final WordListAdapter adapter = new WordListAdapter(this, wordList);
         wordListView.setAdapter(adapter);
+
+        wordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Selected item
+                Word word = adapter.getItem(position);
+
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(OptionsWordListActivity.this, OptionsWordListDetailActivity.class);
+
+                // Sending data to new activity
+                i.putExtra("letter id", letterID);
+                i.putExtra("word inRussian", word.getInRussian());
+                i.putExtra("word inTurkish", word.getInTurkish());
+                i.putExtra("word pronunciation", word.getPronunciation());
+
+                startActivity(i);
+            }
+        });
     }
 
     /**

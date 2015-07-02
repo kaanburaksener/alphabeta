@@ -7,13 +7,15 @@ import android.graphics.Outline;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import android.speech.tts.TextToSpeech;
+import java.util.Locale;
 
 import com.example.kaanburaksener.alphabeta.core.Letter;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;
@@ -29,11 +31,7 @@ public class MainActivity extends Activity {
     private int letterID;
     private int nextID;
     private LinearLayout letterTab;
-    private LinearLayout navigation;
-
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private TextToSpeech tts;
 
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
@@ -42,7 +40,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // Getting attached intent data
         Intent i = getIntent();
@@ -71,7 +68,6 @@ public class MainActivity extends Activity {
         backButton = (TextView)findViewById(R.id.back);
         forwardButton = (TextView)findViewById(R.id.forward);
         letterTab = (LinearLayout) findViewById(R.id.letterTab);
-        navigation = (LinearLayout) findViewById(R.id.navigation);
 
         setFont();
 
@@ -80,10 +76,12 @@ public class MainActivity extends Activity {
 
         uppercaseLetter.setText(letter.getUppercaseLetter());
         lowercaseLetter.setText(letter.getLowercaseLetter());
-        pronunciation.setText("(" + letter.getPronunciation() + ")");
+        pronunciation.setText(letter.getPronunciation());
 
         backButton.setOnClickListener(router);
         forwardButton.setOnClickListener(router);
+
+        pronunciation();
     }
 
     /**
@@ -109,7 +107,6 @@ public class MainActivity extends Activity {
         uppercaseLetter.setOutlineProvider(viewOutlineProvider);
         lowercaseLetter.setOutlineProvider(viewOutlineProvider);
         pronunciation.setOutlineProvider(viewOutlineProvider);
-        navigation.setOutlineProvider(viewOutlineProvider);
     }
 
     @Override
@@ -191,5 +188,39 @@ public class MainActivity extends Activity {
         public boolean onDown(MotionEvent e) {
             return true;
         }
+    }
+
+    /**
+     * This function is used to text to speech for pronunciation
+     */
+    private boolean pronunciation() {
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS) {
+                    tts.setLanguage(new Locale("ru", "RU"));
+                }
+            }
+        });
+
+        pronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toSpeak = letter.getLowercaseLetter();
+                tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+
+        return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        // Don't forget to shutdown tts!
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }

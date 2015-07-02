@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.kaanburaksener.alphabeta.administrator.OptionsActivity;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by KAAN BURAK SENER on 27.06.2015.
  */
@@ -56,19 +54,19 @@ public class MainMenuActivity extends Activity{
      */
     View.OnClickListener router = new View.OnClickListener() {
         public void onClick(View v) {
-            switch(v.getId()) {
-                case R.id.startAlphabet:
-                    Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
-                    i1.putExtra("letter id", 1);
-                    startActivity(i1);
-                    finish();
-                    break;
-                case R.id.options:
-                    Intent i2 = new Intent(getApplicationContext(), OptionsActivity.class);
-                    startActivity(i2);
-                    finish();
-                    break;
-            }
+        switch(v.getId()) {
+            case R.id.startAlphabet:
+                Intent i1 = new Intent(getApplicationContext(),MainActivity.class);
+                i1.putExtra("letter id", 1);
+                startActivity(i1);
+                finish();
+                break;
+            case R.id.options:
+                Intent i2 = new Intent(getApplicationContext(), OptionsActivity.class);
+                startActivity(i2);
+                finish();
+                break;
+        }
         }
     };
 }

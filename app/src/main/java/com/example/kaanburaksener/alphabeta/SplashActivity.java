@@ -21,21 +21,21 @@ public class SplashActivity extends Activity {
         Thread mSplashThread;
         mSplashThread = new Thread(){
             @Override public void run(){
-                try {
-                    synchronized(this){
-                        wait(SPLASH_DISPLAY_LENGTH);
-                    }
+            try {
+                synchronized(this){
+                    wait(SPLASH_DISPLAY_LENGTH);
                 }
+            }
 
-                catch(InterruptedException ex){
+            catch(InterruptedException ex){
 
-                }
+            }
 
-                finally {
-                    Intent i = new Intent(getApplicationContext(),MainMenuActivity.class);
-                    startActivity(i);
-                    finish();
-                }
+            finally {
+                Intent i = new Intent(getApplicationContext(),MainMenuActivity.class);
+                startActivity(i);
+                finish();
+            }
             }
         };
         mSplashThread.start();

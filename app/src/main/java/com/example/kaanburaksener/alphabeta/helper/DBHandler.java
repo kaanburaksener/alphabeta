@@ -77,9 +77,11 @@ public class DBHandler extends SQLiteOpenHelper {
         String letter28 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Ъ', 'ъ', 'yumuşak');";
         String letter29 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Ы', 'ы', 'ı');";
         String letter30 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Ь', 'ь', 'sert');";
-        String letter31 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Э', 'э', 'z');";
+        String letter31 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Э', 'э', 'e');";
         String letter32 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Ю', 'ю', 'yu');";
         String letter33 = "INSERT INTO " + LETTER_TABLE_NAME + " VALUES(null, 'Я', 'я', 'ya');";
+
+        String word1 = "INSERT INTO " + WORD_TABLE_NAME + " VALUES('здравствуйте', 'merhaba', 'zdravstvuyte' , 9);";
 
         //Executing the SQL statements
         //Create Tables
@@ -120,6 +122,8 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(letter31);
         db.execSQL(letter32);
         db.execSQL(letter33);
+
+        db.execSQL(word1);
     }
 
     @Override
@@ -201,5 +205,13 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
         return words;
+    }
+
+    public void deleteWord(Word word) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(WORD_TABLE_NAME,
+                WORD_COLUMN_IN_RUSSIAN + " = ? ",
+                new String[] { word.getInRussian() });
+        db.close();
     }
 }

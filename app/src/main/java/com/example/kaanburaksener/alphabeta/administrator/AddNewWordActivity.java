@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.kaanburaksener.alphabeta.R;
-import com.example.kaanburaksener.alphabeta.administrator.OptionsWordListActivity;
 import com.example.kaanburaksener.alphabeta.helper.DBHandler;
 
 /**
@@ -70,6 +69,7 @@ public class AddNewWordActivity extends Activity {
         inRussianET.setTypeface(typeface);
         inTurkishET.setTypeface(typeface);
         pronunciationET.setTypeface(typeface);
+        saveButtonText.setTypeface(typeface);
     }
 
     /**

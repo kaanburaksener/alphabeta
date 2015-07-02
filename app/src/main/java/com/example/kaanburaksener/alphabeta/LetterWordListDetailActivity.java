@@ -7,10 +7,12 @@ import android.graphics.Outline;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.speech.tts.TextToSpeech;
+import java.util.Locale;
 
 /**
  * Created by KAAN BURAK SENER on 29.06.2015.
@@ -20,6 +22,8 @@ public class LetterWordListDetailActivity extends Activity {
     private TextView inTurkish;
     private TextView pronunciation;
     private int letterId;
+    private LinearLayout pronunciationTrigger;
+    private TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class LetterWordListDetailActivity extends Activity {
         inRussian = (TextView)findViewById(R.id.inRussian);
         inTurkish = (TextView)findViewById(R.id.inTurkish);
         pronunciation = (TextView)findViewById(R.id.pronunciation);
+        pronunciationTrigger = (LinearLayout) findViewById(R.id.pronunciationTrigger);
 
         Intent i = getIntent();
         Bundle extras = getIntent().getExtras();
@@ -46,6 +51,8 @@ public class LetterWordListDetailActivity extends Activity {
         pronunciation.setText(extras.getString("word pronunciation"));
 
         setFont();
+
+        pronunciation(extras.getString("word inRussian"));
     }
 
     /**
@@ -68,23 +75,37 @@ public class LetterWordListDetailActivity extends Activity {
 
         inRussian.setOutlineProvider(viewOutlineProvider);
         inTurkish.setOutlineProvider(viewOutlineProvider);
-        pronunciation.setOutlineProvider(viewOutlineProvider);
+        pronunciationTrigger.setOutlineProvider(viewOutlineProvider);
     }
 
     /**
-     * This is used to back to main menu
+     * This function is used to text to speech for pronunciation
      */
+    private void pronunciation(final String pronunciation) {
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS) {
+                    tts.setLanguage(new Locale("ru", "RU"));
+                }
+            }
+        });
+
+        pronunciationTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toSpeak = pronunciation;
+                tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+    }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent i = new Intent(this, LetterWordListActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("letter id", letterId);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
         }
+        super.onDestroy();
     }
 }
