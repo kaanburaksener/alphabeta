@@ -9,8 +9,8 @@
         android:layout_height="65dp"
         android:layout_weight="1"
         android:background="@color/second"
-        android:textColor="@color/primary_text"
         android:gravity="center"
+        android:textColor="@color/primary_text"
         android:textSize="24sp" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="65dp"
         android:layout_weight="1"
         android:background="@color/first"
-        android:textColor="@color/primary_text"
         android:gravity="center"
+        android:textColor="@color/primary_text"
         android:textSize="24sp" />
 </LinearLayout>

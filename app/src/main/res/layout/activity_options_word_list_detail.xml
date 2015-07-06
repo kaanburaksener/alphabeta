@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_main">
+    android:background="@color/background_main"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/inRussian"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="3"
-        android:gravity="center"
         android:background="@color/third"
-        android:textColor="@color/secondary_text"
-        android:textSize="45sp"
         android:elevation="3dp"
-        android:layout_margin="10dp" />
+        android:gravity="center"
+        android:textColor="@color/secondary_text"
+        android:textSize="45sp" />
 
     <TextView
         android:id="@+id/inTurkish"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_weight="3"
-        android:gravity="center"
         android:background="@color/second"
-        android:textColor="@color/primary_text"
-        android:textSize="45sp"
         android:elevation="3dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:gravity="center"
+        android:textColor="@color/primary_text"
+        android:textSize="45sp" />
 
     <LinearLayout
         android:id="@+id/pronunciationTrigger"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
         android:layout_weight="3"
         android:background="@color/first"
         android:elevation="3dp"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|left">
+        android:gravity="center_vertical|left"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/pronunciation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/ic_volume_up_white_48dp"
             android:gravity="center"
             android:textColor="@color/primary_text"
-            android:textSize="45sp"
-            android:drawableBottom="@drawable/ic_volume_up_white_48dp" />
+            android:textSize="45sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/deleteButton"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#ff3b30"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|left">
+        android:layout_weight="1"
+        android:background="@color/delete_button"
+        android:gravity="center_vertical|left"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/deleteButtonText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Sil"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="24dp"
+            android:drawablePadding="5dp"
             android:drawableRight="@drawable/ic_clear_white_36dp"
-            android:drawablePadding="5dp"/>
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="@color/primary_text"
+            android:textSize="24dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

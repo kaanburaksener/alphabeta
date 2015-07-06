@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_secondary">
 
     <TextView
         android:id="@+id/letter"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/primary"
-        android:textColor="@color/primary_text"
+        android:background="@color/ColorPrimary"
+        android:elevation="3dp"
         android:gravity="center"
-        android:textSize="34dp"
-        android:elevation="3dp" />
+        android:textColor="@color/primary_text"
+        android:textSize="34dp" />
 
     <ListView
         android:id="@+id/wordList"
@@ -21,16 +22,17 @@
         android:layout_height="0dp"
         android:layout_weight="8"
         android:divider="@color/divider"
-        android:dividerHeight="1dip"/>
+        android:dividerHeight="1dip" />
 
     <TextView
         android:id="@+id/addNewWord"
         android:layout_width="match_parent"
-        android:background="#E91E63"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:textSize="34dp"
-        android:text="Yeni Sözcük Ekle!"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:background="@color/secondary_button"
+        android:gravity="center"
+        android:text="@string/add_new_word"
+        android:textColor="@color/primary_text"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 </LinearLayout>

@@ -9,10 +9,10 @@
         android:layout_height="65dp"
         android:layout_weight="1"
         android:background="@color/second"
-        android:textColor="@color/primary_text"
         android:gravity="center"
+        android:textColor="@color/primary_text"
         android:textSize="34sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lowercaseLetter"
@@ -20,7 +20,8 @@
         android:layout_height="65dp"
         android:layout_weight="1"
         android:background="@color/first"
-        android:textColor="@color/primary_text"
         android:gravity="center"
-        android:textSize="34sp" />
+        android:textColor="@color/primary_text"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 </LinearLayout>

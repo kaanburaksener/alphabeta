@@ -1,69 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@color/primary"
-        android:textColor="@color/primary_text"
-        android:text="Yeni Sözcük"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="34dp" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/inRussian"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:hint="Rusça"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_weight="5"
+        android:hint="@string/russian" />
 
     <EditText
         android:id="@+id/inTurkish"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:hint="Türkçe"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_weight="5"
+        android:hint="@string/turkish" />
 
     <EditText
         android:id="@+id/pronunciation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:hint="Okunuşu"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_weight="5"
+        android:hint="@string/pronunciation" />
 
     <LinearLayout
         android:id="@+id/saveButton"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="#8BC34A"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical|left">
+        android:layout_weight="2"
+        android:background="@color/save_button"
+        android:gravity="center_vertical|left"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/saveButtonText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Kaydet"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="24dp"
+            android:drawablePadding="5dp"
             android:drawableRight="@drawable/ic_done_white_36dp"
-            android:drawablePadding="5dp"/>
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="@color/primary_text"
+            android:textSize="24dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

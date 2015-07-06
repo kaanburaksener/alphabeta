@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kaanburaksener.alphabeta" >
+    package="com.kaanburaksener.alphabeta" >
 
     <application
         android:allowBackup="true"
@@ -9,8 +9,8 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".SplashActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.SplashActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,42 +18,43 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name=".ui.MainMenuActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".ui.admin.OptionsActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".administrator.OptionsActivity"
+            android:name=".ui.admin.OptionsWordListActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name=".ui.admin.OptionsWordListDetailActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".administrator.OptionsWordListActivity"
+            android:name=".ui.admin.AddNewWordActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".administrator.OptionsWordListDetailActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.LetterWordListActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar">
         </activity>
 
         <activity
-            android:name=".administrator.AddNewWordActivity"
-            android:label="@string/app_name" >
-        </activity>
-
-        <activity
-            android:name=".LetterWordListActivity"
-            android:label="@string/app_name" >
-        </activity>
-
-        <activity
-            android:name=".LetterWordListDetailActivity"
+            android:name=".ui.LetterWordListDetailActivity"
             android:label="@string/app_name" >
         </activity>
     </application>
