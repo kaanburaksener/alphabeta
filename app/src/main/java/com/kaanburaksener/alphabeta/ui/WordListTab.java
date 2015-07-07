@@ -50,7 +50,7 @@ public class WordListTab extends Fragment {
                 Word word = adapter.getItem(position);
 
                 // Launching new Activity on selecting single List Item
-                Intent i = new Intent(getActivity(), LetterWordListDetailActivity.class);
+                Intent i = new Intent(getActivity(), WordListTabDetailActivity.class);
 
                 // Sending data to new activity
                 i.putExtra("letter id", letterID);

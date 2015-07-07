@@ -5,6 +5,12 @@
     android:orientation="vertical"
     android:background="@color/background_secondary">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
     <TextView
         android:id="@+id/letter"
         android:layout_width="match_parent"
@@ -23,16 +29,4 @@
         android:layout_weight="8"
         android:divider="@color/divider"
         android:dividerHeight="1dip" />
-
-    <TextView
-        android:id="@+id/addNewWord"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/secondary_button"
-        android:gravity="center"
-        android:text="@string/add_new_word"
-        android:textColor="@color/primary_text"
-        android:textSize="24dp"
-        android:textStyle="bold"/>
 </LinearLayout>

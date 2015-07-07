@@ -3,8 +3,8 @@ package com.kaanburaksener.alphabeta.ui;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
-    Toolbar toolbar;
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    List<String> titles;
-    int numberOftabs = 2;
-    int letterID;
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private ViewPagerAdapter adapter;
+    private SlidingTabLayout tabs;
+    private List<String> titles;
+    private int numberOftabs = 2;
+    private int letterID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +80,10 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_menu) {
+            Intent i1 = new Intent(getApplicationContext(),MainMenuActivity.class);
+            startActivity(i1);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

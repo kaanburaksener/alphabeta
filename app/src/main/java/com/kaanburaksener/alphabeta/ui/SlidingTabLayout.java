@@ -21,15 +21,8 @@ import com.kaanburaksener.alphabeta.R;
  * Created by KAAN BURAK SENER on 06.07.2015.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
-
-    /**
-     * Allows complete control over the colors drawn in the tab layout. Set with
-     * {@link #setCustomTabColorizer(TabColorizer)}.
-     */
     public interface TabColorizer {
-
         int getIndicatorColor(int position);
-
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;

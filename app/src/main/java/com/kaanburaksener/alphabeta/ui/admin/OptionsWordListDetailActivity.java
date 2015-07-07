@@ -31,7 +31,6 @@ public class OptionsWordListDetailActivity extends Activity {
     private String inTurkish;
     private String pronunciation;
     private int firstLetterId;
-    private LinearLayout pronunciationTrigger;
     private LinearLayout deleteButton;
     private TextToSpeech tts;
     private DBHandler db;
@@ -52,7 +51,6 @@ public class OptionsWordListDetailActivity extends Activity {
         inRussianTV = (TextView)findViewById(R.id.inRussian);
         inTurkishTV = (TextView)findViewById(R.id.inTurkish);
         pronunciationTV = (TextView)findViewById(R.id.pronunciation);
-        pronunciationTrigger = (LinearLayout) findViewById(R.id.pronunciationTrigger);
         deleteButton = (LinearLayout) findViewById(R.id.deleteButton);
         deleteButtonText = (TextView) findViewById(R.id.deleteButtonText);
 
@@ -89,18 +87,6 @@ public class OptionsWordListDetailActivity extends Activity {
         inTurkishTV.setTypeface(typeface);
         pronunciationTV.setTypeface(typeface);
         deleteButtonText.setTypeface(typeface);
-
-        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                int size = 56;
-                outline.setRect(0, 0, view.getWidth(), view.getHeight());
-            }
-        };
-
-        inRussianTV.setOutlineProvider(viewOutlineProvider);
-        inTurkishTV.setOutlineProvider(viewOutlineProvider);
-        pronunciationTrigger.setOutlineProvider(viewOutlineProvider);
     }
 
     /**
@@ -126,7 +112,7 @@ public class OptionsWordListDetailActivity extends Activity {
     /**
      * This function is used to text to speech for pronunciation
      */
-    private void pronunciation(final String pronunciation) {
+    private boolean pronunciation(final String pronunciation) {
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -136,13 +122,15 @@ public class OptionsWordListDetailActivity extends Activity {
             }
         });
 
-        pronunciationTrigger.setOnClickListener(new View.OnClickListener() {
+        pronunciationTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String toSpeak = pronunciation;
                 tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
+
+        return false;
     }
 
     @Override

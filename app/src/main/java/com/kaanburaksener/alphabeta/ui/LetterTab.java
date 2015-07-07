@@ -42,36 +42,36 @@ public class LetterTab extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
 
-                nextID = letterID - 1;
+            nextID = letterID - 1;
 
-                if (nextID == 0) {
-                    nextID = 33;
-                }
+            if (nextID == 0) {
+                nextID = 33;
+            }
 
-                intent.putExtra("letter id", nextID);
-                startActivity(intent);
-                getActivity().finish();
-                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.stack_push_out);
+            intent.putExtra("letter id", nextID);
+            startActivity(intent);
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.stack_push_out);
             }
         });
 
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
 
-                nextID = letterID + 1;
+            nextID = letterID + 1;
 
-                if(nextID == 34) {
-                    nextID = 1;
-                }
+            if(nextID == 34) {
+                nextID = 1;
+            }
 
-                intent.putExtra("letter id", nextID);
-                startActivity(intent);
-                getActivity().finish();
-                getActivity().overridePendingTransition(R.anim.stack_pop_in, R.anim.slide_out_to_right);
+            intent.putExtra("letter id", nextID);
+            startActivity(intent);
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.stack_pop_in, R.anim.slide_out_to_right);
             }
         });
 

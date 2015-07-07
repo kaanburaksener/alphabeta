@@ -5,43 +5,53 @@
     android:background="@color/background_main"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/uppercaseLetter"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="3"
-        android:background="@color/third"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:layout_weight="9"
         android:elevation="3dp"
-        android:gravity="center"
-        android:textColor="@color/secondary_text"
-        android:textSize="56sp" />
+        card_view:cardCornerRadius="4dp">
 
-    <TextView
-        android:id="@+id/lowercaseLetter"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="3"
-        android:background="@color/second"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:textColor="@color/primary_text"
-        android:textSize="56sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/pronunciation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="3"
-        android:background="@color/first"
-        android:drawableBottom="@drawable/ic_volume_up_white_48dp"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:textColor="@color/primary_text"
-        android:textSize="56sp" />
+            <TextView
+                android:id="@+id/uppercaseLetter"
+                android:background="@color/third"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/secondary_text"
+                android:textSize="56sp" />
+
+            <TextView
+                android:id="@+id/lowercaseLetter"
+                android:background="@color/second"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/primary_text"
+                android:textSize="56sp" />
+
+            <TextView
+                android:id="@+id/pronunciation"
+                android:background="@color/first"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/ic_volume_up_white_48dp"
+                android:gravity="center"
+                android:textColor="@color/primary_text"
+                android:textSize="56sp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:id="@+id/navigation"
